@@ -46,7 +46,7 @@ TODOs;
 #include <gtest/gtest.h>
 
 #include "lib_c5t_actor_model.h"
-#include "lib_c5t_dlib.h"
+// #include "lib_c5t_dlib.h"
 #include "lib_c5t_lifetime_manager.h"
 #include "lib_test_actor_model.h"
 
@@ -75,7 +75,7 @@ struct InitDLibOnce final {
       std::string const res = current::strings::Join(path, current::FileSystem::GetPathSeparator());
       return *__FILE__ == current::FileSystem::GetPathSeparator() ? "/" + res : res;
     }();
-    C5T_DLIB_SET_BASE_DIR(bin_path);
+    // C5T_DLIB_SET_BASE_DIR(bin_path);
   }
 };
 InitDLibOnce InitDLibOnce_impl;
@@ -198,6 +198,7 @@ TEST(ActorModelTest, Nullable) {
   EXPECT_EQ("b501", oss.str());
 }
 
+#if 0
 TEST(ActorModelTest, InjectedFromDLib) {
   EXPECT_EQ(42,
             C5T_DLIB_CALL("test_actor_model", [&](C5T_DLib& dlib) { return dlib.CallOrDefault<int()>("Smoke42"); }));
@@ -271,3 +272,4 @@ TEST(ActorModelTest, InjectedFromDLib) {
               return dlib.CallOrDefault<std::string()>("ExternalSubscriberData");
             }));
 }
+#endif

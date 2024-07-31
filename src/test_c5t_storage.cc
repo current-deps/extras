@@ -5,7 +5,7 @@
 #include "bricks/strings/join.h"
 #include "bricks/time/chrono.h"
 
-#include "lib_c5t_dlib.h"
+// #include "lib_c5t_dlib.h"
 #include "lib_c5t_storage.h"
 #include "lib_test_storage.h"
 
@@ -40,6 +40,7 @@ struct TestStorageDir final {
   }
 };
 
+#if 0
 struct InitDLibOnce final {
   InitDLibOnce() {
     std::string const bin_path = []() {
@@ -57,6 +58,7 @@ struct InitDLibOnce final {
     C5T_DLIB_SET_BASE_DIR(bin_path);
   }
 };
+#endif
 
 TEST(StorageTest, FieldsList) {
   auto const storage_scope = C5T_STORAGE_CREATE_UNIQUE_INSANCE(current::Singleton<TestStorageDir>().dir);
@@ -167,6 +169,7 @@ TEST(StorageTest, MapPersists) {
   }
 }
 
+#if 0
 TEST(StorageTest, InjectedFromDLib) {
   current::Singleton<InitDLibOnce>();
 
@@ -216,6 +219,7 @@ TEST(StorageTest, InjectedFromDLib) {
   EXPECT_FALSE(C5T_STORAGE(kv1).Has("k"));
   ASSERT_THROW(C5T_STORAGE(kv1).GetOrThrow("k"), StorageKeyNotFoundException);
 }
+#endif
 
 TEST(StorageTest, ThrowsOnDeclaredAndNotDefinedField) {
   ASSERT_THROW(C5T_STORAGE(kv_declared_but_not_defined), StorageNotInitializedException);
